@@ -17,13 +17,17 @@ def about():
 
 @app.route('/agregar', methods=['POST'])
 def agregar():
-    nueva_tarea = request.form.get('tarea')
+    nueva_tarea = request.form.get('tarea').strip()
 
-    if nueva_tarea:
+    if nueva_tarea != "":
         tareas.append(nueva_tarea)
 
     return redirect(url_for('home'))
 
+@app.route('/eliminar/<int:indice>', methods=['POST'])
+def eliminar(indice):
+    tareas.pop(indice)
+    return redirect(url_for('home'))
 
 if __name__ == '__main__':
     app.run(debug=True)
