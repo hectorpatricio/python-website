@@ -3,4 +3,88 @@ body
     background: #67B26F;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to right, #4ca2cd, #67B26F);  /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to right, #4ca2cd, #67B26F); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+ 
+    font-family: Arial, sans-serif;
+    background-color: #f4f6f9;
+    margin: 0;
+}
+
+header {
+    background-color: #2f5fa7;
+    color: white;
+    padding: 20px;
+    font-size: 24px;
+}
+
+.container {
+    width: 80%;
+    margin: 30px auto;
+}
+
+.form-tarea {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 2px 8px rgba(0,0,0,0.1);
+}
+
+input[type="text"] {
+    width: 70%;
+    padding: 10px;
+}
+
+button {
+    padding: 10px 15px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.lista {
+    margin-top: 20px;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.tarea {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.accordion-button {
+    background-color: #3f83d1;  /* más oscuro que el anterior */
+    color: white;
+}
+
+.accordion-button:not(.collapsed) {
+    background-color: #2f6fb3;  /* un tono más profundo */
+    color: white;
+}
+
+.accordion-button::after {
+    filter: brightness(0) invert(1);
+}
+
+/* Quitar borde gris feo */
+.accordion-item {
+    border: none;
+}
+
+/* Bordes redondeados */
+.accordion {
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+/* Sombra elegante */
+.accordion-item {
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.12);
+}
+
+/* Transición suave */
+.accordion-button {
+    transition: background-color 0.3s ease;
 }

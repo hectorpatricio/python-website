@@ -2,21 +2,58 @@
 
 {% block content %}
 
-    <div class="p-5 mb-4 bg-light rounded-3">
-        <div class="container-fluid">
-            <h1 class="display-4">Hello, world!</h1>
-            <p class="lead">
-                This is a simple hero unit, a simple jumbotron-style component.
-            </p>
-            <hr class="my-4">
-            <p>
-                It uses utility classes for typography and spacing.
-            </p>
-            <a class="btn btn-primary btn-lg" href="#" role="button">
-                Learn more
-            </a>
+
+<body>
+
+    <div class="container mt-2">
+        <div class="accordion" id="miAccordion">
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#contenido" aria-expanded="true">
+                        Sistema de Gestión de Tareas
+                    </button>
+                </h2>
+
+                <div id="contenido" class="accordion-collapse collapse show" data-bs-parent="#miAccordion">
+                    <div class="accordion-body">
+
+                        <!-- Formulario mejorado -->
+                        <div class="mb-4">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Nueva tarea...">
+                                <button class="btn btn-primary">
+                                    Agregar
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Lista mejorada -->
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                Estudiar Flask y Python
+                            </li>
+                            <li class="list-group-item">
+                                Diseñar interfaz del proyecto
+                            </li>
+                            <li class="list-group-item">
+                                Preparar presentación
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+
+</body>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+
+
+
 
 {% endblock %}
 
