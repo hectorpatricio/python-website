@@ -2,6 +2,32 @@
 
 {% block content %}
 
+<div class="modal fade" id="modalGeneral" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <div class="modal-header text-white" id="modalHeader">
+                <h5 class="modal-title" id="modalTitulo">Título</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body" id="modalMensaje">
+                Mensaje aquí
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    Cancelar
+                </button>
+
+                <button type="button" class="btn" id="btnConfirmar" style="display:none;">
+                    Aceptar
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
 
 <div class="container mt-2">
     <div class="accordion" id="miAccordion">
@@ -16,24 +42,37 @@
                 <div class="accordion-body">
 
                     <div class="form-tarea d-flex gap-2 mb-3">
-                        <form action="{{ url_for('agregar') }}" method="POST" class="d-flex w-100 gap-2">
-                            <input type="text" name="tarea" class="form-control" placeholder="Nueva tarea..." required>
+                        <form action="{{ url_for('agregar') }}" method="POST" class="d-flex w-100 gap-2" onsubmit="return validarFormulario()">
+                            <input type="text" id="nuevaTarea" name="tarea" class="form-control" placeholder="Nueva tarea...">
                             <button class="btn btn-primary">Agregar</button>
                         </form>
                     </div>
 
-                    <div class="lista">
-                        {% for tarea in tareas %}
-                            <div class="d-flex justify-content-between align-items-center mb-2 p-2 border rounded">
-                                <span>{{ loop.index }} {{ tarea }}</span>
-                                <form action="{{ url_for('eliminar', indice=loop.index0) }}" method="POST">
-                                    <button class="btn btn-sm btn-danger btn-sm">
-                                        Eliminar
-                                    </button>
-                                </form>
-                            </div>
-                        {% endfor %}
+                    {% for tarea in tareas %}
+                    <div class="d-flex align-items-center mb-2">
+
+                        <div style="width: 30px;">
+                            {{ loop.index }}
+                        </div>
+
+                        <!-- FORM MODIFICAR -->
+                        <form action="{{ url_for('modificar', indice=loop.index0) }}" method="POST" class="d-flex align-items-center gap-2 me-2 flex-grow-1">
+                            <input type="text" name="tarea_editada" value="{{ tarea }}" class="form-control form-control-sm flex-grow-1" required>
+                            <button type="button" class="btn btn-modificar btn-sm" onclick="confirmarModificar(event, this)">
+                                Modificar
+                            </button>
+                        </form>
+
+                        <!-- FORM ELIMINAR -->
+                        <form action="{{ url_for('eliminar', indice=loop.index0) }}" method="POST">
+                        <button type="button" class="btn btn-eliminar btn-sm" onclick="confirmarEliminar(event, this)">
+                            Eliminar
+                        </button>
+                        </form>
+
                     </div>
+                    {% endfor %}
+                
                 </div>
             </div>
         </div>
@@ -42,7 +81,54 @@
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
 
+function mostrarModal(titulo, mensaje, formulario = null, tipo = "danger") {
+
+    document.getElementById("modalTitulo").innerText = titulo;
+    document.getElementById("modalMensaje").innerText = mensaje;
+
+    let header = document.getElementById("modalHeader");
+    let btnConfirmar = document.getElementById("btnConfirmar");
+
+    // Resetear estilos
+    header.className = "modal-header text-white";
+    btnConfirmar.className = "btn";
+
+    if (tipo === "primary") {
+        header.classList.add("bg-primary");
+        btnConfirmar.classList.add("btn-success");
+    } else {
+        header.classList.add("bg-danger");
+        btnConfirmar.classList.add("btn-success");
+    }
+
+    if (formulario) {
+        btnConfirmar.style.display = "inline-block";
+        btnConfirmar.onclick = function () {
+            formulario.submit();
+        };
+    } else {
+        btnConfirmar.style.display = "none";
+        btnConfirmar.onclick = null;
+    }
+
+    let modal = new bootstrap.Modal(document.getElementById('modalGeneral'));
+    modal.show();
+}
+
+function confirmarModificar(event, boton) {
+    event.preventDefault(); // 
+    let formulario = boton.closest("form");
+    mostrarModal("Confirmar modificación","¿Realmente deseas cambiar lo escrito?",formulario,"primary");
+}
+
+function confirmarEliminar(event, boton) {
+    event.preventDefault();
+    let formulario = boton.closest("form");
+    mostrarModal("Confirmar eliminación","¿Estás seguro que deseas eliminar esta tarea?",formulario,"danger");
+}
+
+</script>
 
 {% endblock %}
-
