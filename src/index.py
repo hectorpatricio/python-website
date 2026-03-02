@@ -24,10 +24,10 @@ def agregar():
     nueva_tarea = request.form.get('tarea').strip()
 
     if nueva_tarea != "":
-        tareas.append(nueva_tarea)
-        #flash("Tarea agregada correctamente ✅", "success")
-    # else:
-    #     flash("Debes escribir una tarea antes de agregarla ⚠️", "danger")
+        tareas.append({
+            "texto": nueva_tarea,
+            "estado": "sin_empezar"
+        })
 
     return redirect(url_for('home'))
 
@@ -37,9 +37,11 @@ def agregar():
 def modificar(indice):
 
     tarea_editada = request.form.get('tarea_editada', '').strip()
+    estado = request.form.get('estado')
 
     if tarea_editada != "":
-        tareas[indice] = tarea_editada
+        tareas[indice]["texto"] = tarea_editada
+        tareas[indice]["estado"] = estado
 
     return redirect(url_for('home'))
 

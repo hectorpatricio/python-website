@@ -106,3 +106,24 @@ input[type="text"] {
     background-color: #b71c1c !important;
     color: white !important;
 }
+
+.form-control-sm,
+.form-select-sm {
+    height: 41px;
+}
+
+.tarea-completada {
+    background-color: #d4edda;
+    border-color: #28a745;
+}
+
+.tarea-pendiente {
+    background-color: #fff3cd;
+    border-color: #ffc107;
+}
+
+.tarea-sin-empezar {
+    background-color: #f8f9fa;
+    border-color: #ced4da;
+}
+

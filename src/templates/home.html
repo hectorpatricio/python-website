@@ -48,31 +48,115 @@
                         </form>
                     </div>
 
-                    {% for tarea in tareas %}
-                    <div class="d-flex align-items-center mb-2">
+                
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-bs-toggle="tab" href="#todas">
+                                Todas
+                            </a>
+                        </li>
 
-                        <div style="width: 30px;">
-                            {{ loop.index }}
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" href="#pendientes">
+                                Pendientes
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" href="#completadas">
+                                Completadas
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" href="#resumen">
+                                Resumen
+                            </a>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content mt-3">
+                        <div class="tab-pane fade show active" id="todas">
+                           
+                            {% for tarea in tareas %}
+                            <div class="d-flex align-items-center mb-2">
+
+                                <div style="width: 30px;">
+                                    {{ loop.index }}
+                                </div>
+
+                                <!-- FORM MODIFICAR -->
+                                <form action="{{ url_for('modificar', indice=loop.index0) }}" method="POST" class="d-flex align-items-center gap-2 me-2 flex-grow-1">
+                                    
+                                    <input type="text" name="tarea_editada" value="{{ tarea.texto }}" class="form-control form-control-sm flex-grow-1 
+                                    {% if tarea.estado == 'completado' %} tarea-completada {% elif tarea.estado == 'pendiente' %} tarea-pendiente
+                                    {% else %} tarea-sin-empezar {% endif %}" required>
+
+                                    <!-- NUEVO COMBOBOX -->
+                                    <select name="estado" class="form-select form-select-sm" style="width:180px;">
+                                        <option value="sin_empezar"
+                                            {% if tarea.estado == "sin_empezar" %}selected{% endif %}>
+                                            Sin empezar
+                                        </option>
+
+                                        <option value="pendiente"
+                                            {% if tarea.estado == "pendiente" %}selected{% endif %}>
+                                            Pendiente
+                                        </option>
+
+                                        <option value="completado"
+                                            {% if tarea.estado == "completado" %}selected{% endif %}>
+                                            Completado
+                                        </option>
+                                    </select>
+
+                                    <button type="button" class="btn btn-modificar btn-sm" onclick="confirmarModificar(event, this)">
+                                        Modificar
+                                    </button>
+                                </form>
+
+                                <!-- FORM ELIMINAR -->
+                                <form action="{{ url_for('eliminar', indice=loop.index0) }}" method="POST">
+                                    <button type="button" class="btn btn-eliminar btn-sm" onclick="confirmarEliminar(event, this)">
+                                        Eliminar
+                                    </button>
+                                </form>
+                            </div>
+                            {% endfor %}
                         </div>
 
-                        <!-- FORM MODIFICAR -->
-                        <form action="{{ url_for('modificar', indice=loop.index0) }}" method="POST" class="d-flex align-items-center gap-2 me-2 flex-grow-1">
-                            <input type="text" name="tarea_editada" value="{{ tarea }}" class="form-control form-control-sm flex-grow-1" required>
-                            <button type="button" class="btn btn-modificar btn-sm" onclick="confirmarModificar(event, this)">
-                                Modificar
-                            </button>
-                        </form>
+                        <div class="tab-pane fade" id="pendientes">
+                            <p>Contenido de Pendientes</p>
+                        </div>
 
-                        <!-- FORM ELIMINAR -->
-                        <form action="{{ url_for('eliminar', indice=loop.index0) }}" method="POST">
-                        <button type="button" class="btn btn-eliminar btn-sm" onclick="confirmarEliminar(event, this)">
-                            Eliminar
-                        </button>
-                        </form>
+                        <div class="tab-pane fade" id="completadas">
+                            <p>Contenido de Completadas</p>
+                        </div>
 
+                         <div class="tab-pane fade" id="resumen">
+                            <div class="card shadow">
+                                <div class="card-header bg-dark text-white">
+                                    Resumen de Tareas
+                                </div>
+                                <div class="card-body">
+                                    <p>Total: {{ total }}</p>
+                                    <p>Pendientes: {{ pendientes }}</p>
+                                    <p>Completadas: {{ completadas }}</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    {% endfor %}
-                
+
+
+
+
+                    
+
+
+
+
+
+
                 </div>
             </div>
         </div>
@@ -132,3 +216,6 @@ function confirmarEliminar(event, boton) {
 </script>
 
 {% endblock %}
+
+
+
