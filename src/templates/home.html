@@ -41,33 +41,42 @@
             <div id="contenido" class="accordion-collapse collapse show" data-bs-parent="#miAccordion">
                 <div class="accordion-body">
 
-                    <div class="form-tarea d-flex gap-2 mb-3">
-                        <form action="{{ url_for('agregar') }}" method="POST" class="d-flex w-100 gap-2" onsubmit="return validarFormulario()">
+                   <div class="form-tarea d-flex align-items-stretch gap-2 mb-3">
+                        <!-- FORM AGREGAR -->
+                        <form action="{{ url_for('agregar') }}" method="POST" class="d-flex flex-grow-1 gap-2" onsubmit="return validarFormulario()">
                             <input type="text" id="nuevaTarea" name="tarea" class="form-control" placeholder="Nueva tarea...">
-                            <button class="btn btn-primary">Agregar</button>
+                            <button class="btn btn-primary"> Agregar </button>
+                        </form>
+
+                        <!-- FORM BORRAR TODO -->
+                        <form action="{{ url_for('eliminar_todo') }}" method="POST" class="d-flex">
+                            <button type="button" class="btn btn-danger" onclick="confirmarEliminarTodo(event, this)">
+                                Borrar todo
+                            </button>
                         </form>
                     </div>
 
-                
                     <ul class="nav nav-tabs">
                         <li class="nav-item">
                             <a class="nav-link active" data-bs-toggle="tab" href="#todas">
                                 Todas
                             </a>
                         </li>
-
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" href="#sin_empezar">
+                                Sin empezar
+                            </a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link" data-bs-toggle="tab" href="#pendientes">
                                 Pendientes
                             </a>
                         </li>
-
                         <li class="nav-item">
                             <a class="nav-link" data-bs-toggle="tab" href="#completadas">
                                 Completadas
                             </a>
                         </li>
-
                         <li class="nav-item">
                             <a class="nav-link" data-bs-toggle="tab" href="#resumen">
                                 Resumen
@@ -76,8 +85,11 @@
                     </ul>
 
                     <div class="tab-content mt-3">
+                        
+                        <!--#######################################################################-->
+                        <!--################### PANTALLLA DE TODAS LAS PERSONAS ###################-->
+                        <!--#######################################################################-->
                         <div class="tab-pane fade show active" id="todas">
-                           
                             {% for tarea in tareas %}
                             <div class="d-flex align-items-center mb-2">
 
@@ -125,44 +137,234 @@
                             {% endfor %}
                         </div>
 
-                        <div class="tab-pane fade" id="pendientes">
-                            <p>Contenido de Pendientes</p>
-                        </div>
+                        <!--######################################################################-->
+                        <!--################ PANTALLLA DE LAS PERSONAS SIN TAREAS ################-->
+                        <!--######################################################################-->
+                        <div class="tab-pane fade" id="sin_empezar"> 
+                            {% for tarea in tareas %}
+                                {% if tarea.estado == "sin_empezar" %}
+                                <div class="d-flex align-items-center mb-2">
 
-                        <div class="tab-pane fade" id="completadas">
-                            <p>Contenido de Completadas</p>
-                        </div>
+                                    <div style="width: 30px;">
+                                        {{ loop.index }}
+                                    </div>
 
-                         <div class="tab-pane fade" id="resumen">
-                            <div class="card shadow">
-                                <div class="card-header bg-dark text-white">
-                                    Resumen de Tareas
+                                    <!-- FORM MODIFICAR -->
+                                    <form action="{{ url_for('modificar', indice=loop.index0) }}" method="POST" class="d-flex align-items-center gap-2 me-2 flex-grow-1">
+                                        
+                                        <input type="text" name="tarea_editada" value="{{ tarea.texto }}" class="form-control form-control-sm flex-grow-1 
+                                        {% if tarea.estado == 'completado' %} tarea-completada {% elif tarea.estado == 'pendiente' %} tarea-pendiente
+                                        {% else %} tarea-sin-empezar {% endif %}" required>
+
+                                        <!-- NUEVO COMBOBOX -->
+                                        <select name="estado" class="form-select form-select-sm" style="width:180px;">
+                                            <option value="sin_empezar"
+                                                {% if tarea.estado == "sin_empezar" %}selected{% endif %}>
+                                                Sin empezar
+                                            </option>
+
+                                            <option value="pendiente"
+                                                {% if tarea.estado == "pendiente" %}selected{% endif %}>
+                                                Pendiente
+                                            </option>
+
+                                            <option value="completado"
+                                                {% if tarea.estado == "completado" %}selected{% endif %}>
+                                                Completado
+                                            </option>
+                                        </select>
+
+                                        <button type="button" class="btn btn-modificar btn-sm" onclick="confirmarModificar(event, this)">
+                                            Modificar
+                                        </button>
+                                    </form>
+
+                                    <!-- FORM ELIMINAR -->
+                                    <form action="{{ url_for('eliminar', indice=loop.index0) }}" method="POST">
+                                        <button type="button" class="btn btn-eliminar btn-sm" onclick="confirmarEliminar(event, this)">
+                                            Eliminar
+                                        </button>
+                                    </form>
                                 </div>
-                                <div class="card-body">
-                                    <p>Total: {{ total }}</p>
-                                    <p>Pendientes: {{ pendientes }}</p>
-                                    <p>Completadas: {{ completadas }}</p>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+
+                        <!--######################################################################-->
+                        <!--################ PANTALLLA DE LAS PERSONAS PENDIENTES ################-->
+                        <!--######################################################################-->
+                        <div class="tab-pane fade" id="pendientes"> 
+                            {% for tarea in tareas %}
+                                {% if tarea.estado == "pendiente" %}
+                                <div class="d-flex align-items-center mb-2">
+
+                                    <div style="width: 30px;">
+                                        {{ loop.index }}
+                                    </div>
+
+                                    <!-- FORM MODIFICAR -->
+                                    <form action="{{ url_for('modificar', indice=loop.index0) }}" method="POST" class="d-flex align-items-center gap-2 me-2 flex-grow-1">
+                                        
+                                        <input type="text" name="tarea_editada" value="{{ tarea.texto }}" class="form-control form-control-sm flex-grow-1 
+                                        {% if tarea.estado == 'completado' %} tarea-completada {% elif tarea.estado == 'pendiente' %} tarea-pendiente
+                                        {% else %} tarea-sin-empezar {% endif %}" required>
+
+                                        <!-- NUEVO COMBOBOX -->
+                                        <select name="estado" class="form-select form-select-sm" style="width:180px;">
+                                            <option value="sin_empezar"
+                                                {% if tarea.estado == "sin_empezar" %}selected{% endif %}>
+                                                Sin empezar
+                                            </option>
+
+                                            <option value="pendiente"
+                                                {% if tarea.estado == "pendiente" %}selected{% endif %}>
+                                                Pendiente
+                                            </option>
+
+                                            <option value="completado"
+                                                {% if tarea.estado == "completado" %}selected{% endif %}>
+                                                Completado
+                                            </option>
+                                        </select>
+
+                                        <button type="button" class="btn btn-modificar btn-sm" onclick="confirmarModificar(event, this)">
+                                            Modificar
+                                        </button>
+                                    </form>
+
+                                    <!-- FORM ELIMINAR -->
+                                    <form action="{{ url_for('eliminar', indice=loop.index0) }}" method="POST">
+                                        <button type="button" class="btn btn-eliminar btn-sm" onclick="confirmarEliminar(event, this)">
+                                            Eliminar
+                                        </button>
+                                    </form>
+                                </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+
+                        <!--#######################################################################-->
+                        <!--################ PANTALLLA DE LAS PERSONAS COMPLETADAS ################-->
+                        <!--#######################################################################-->
+                        <div class="tab-pane fade" id="completadas">
+                            {% for tarea in tareas %}
+                                {% if tarea.estado == "completado" %}
+                                <div class="d-flex align-items-center mb-2">
+
+                                    <div style="width: 30px;">
+                                        {{ loop.index }}
+                                    </div>
+
+                                    <!-- FORM MODIFICAR -->
+                                    <form action="{{ url_for('modificar', indice=loop.index0) }}" method="POST" class="d-flex align-items-center gap-2 me-2 flex-grow-1">
+                                        
+                                        <input type="text" name="tarea_editada" value="{{ tarea.texto }}" class="form-control form-control-sm flex-grow-1 
+                                        {% if tarea.estado == 'completado' %} tarea-completada {% elif tarea.estado == 'pendiente' %} tarea-pendiente
+                                        {% else %} tarea-sin-empezar {% endif %}" required>
+
+                                        <!-- NUEVO COMBOBOX -->
+                                        <select name="estado" class="form-select form-select-sm" style="width:180px;">
+                                            <option value="sin_empezar"
+                                                {% if tarea.estado == "sin_empezar" %}selected{% endif %}>
+                                                Sin empezar
+                                            </option>
+
+                                            <option value="pendiente"
+                                                {% if tarea.estado == "pendiente" %}selected{% endif %}>
+                                                Pendiente
+                                            </option>
+
+                                            <option value="completado"
+                                                {% if tarea.estado == "completado" %}selected{% endif %}>
+                                                Completado
+                                            </option>
+                                        </select>
+
+                                        <button type="button" class="btn btn-modificar btn-sm" onclick="confirmarModificar(event, this)">
+                                            Modificar
+                                        </button>
+                                    </form>
+
+                                    <!-- FORM ELIMINAR -->
+                                    <form action="{{ url_for('eliminar', indice=loop.index0) }}" method="POST">
+                                        <button type="button" class="btn btn-eliminar btn-sm" onclick="confirmarEliminar(event, this)">
+                                            Eliminar
+                                        </button>
+                                    </form>
+                                </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+
+
+
+
+
+                        
+ 
+
+                            <div class="tab-pane fade" id="resumen">
+                                <div class="card shadow">
+                                    <div class="card-header text-white" style="background-color: #3F4750;">
+                                        Resumen de Tareas
+                                    </div>
+
+                                    <div class="card-body text-white" style="background-color: #4E5761;">
+
+                                        <p><strong>Total de Tareas:</strong> {{ total }}</p>
+
+                                        <p><strong>Sin empezar:</strong> {{ sin_empezar }}</p>
+
+                                        <p><strong>Pendientes:</strong> {{ pendientes }}</p>
+
+                                        <p><strong>Completadas:</strong> {{ completadas }}</p>
+
+                                        <hr>
+
+                                        <h6>Progreso</h6>
+
+                                        <div class="mb-3">
+                                            <label>Sin empezar ({{ porcentaje_sin_empezar }}%)</label>
+                                            <div class="progress">
+                                                <div class="progress-bar bg-secondary" role="progressbar" style="width: {{ porcentaje_sin_empezar }}%;">
+                                                    {{ porcentaje_sin_empezar }}%
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label>Pendientes ({{ porcentaje_pendientes }}%)</label>
+                                            <div class="progress">
+                                                <div class="progress-bar bg-warning" role="progressbar" style="width: {{ porcentaje_pendientes }}%;">
+                                                    {{ porcentaje_pendientes }}%
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label>Completadas ({{ porcentaje_completadas }}%)</label>
+                                            <div class="progress">
+                                                <div class="progress-bar bg-success" role="progressbar" style="width: {{ porcentaje_completadas }}%;">
+                                                    {{ porcentaje_completadas }}%
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
                                 </div>
                             </div>
+
+
+
+
+
                         </div>
                     </div>
-
-
-
-
-                    
-
-
-
-
-
-
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script>
@@ -212,6 +414,13 @@ function confirmarEliminar(event, boton) {
     let formulario = boton.closest("form");
     mostrarModal("Confirmar eliminación","¿Estás seguro que deseas eliminar esta tarea?",formulario,"danger");
 }
+
+function confirmarEliminarTodo(event, boton) {
+    event.preventDefault();
+    let formulario = boton.closest("form");
+    mostrarModal("Confirmar borrar todo","¿Estás seguro que deseas eliminar todo?, No se podrá recuperar",formulario,"danger");
+}
+
 
 </script>
 

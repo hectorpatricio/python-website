@@ -127,3 +127,6 @@ input[type="text"] {
     border-color: #ced4da;
 }
 
+.nav-link.active {
+    border-bottom: 2px solid #F54927;
+}

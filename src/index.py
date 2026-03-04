@@ -9,7 +9,33 @@ tareas = []  # Lista temporal en memoria
 
 @app.route('/')
 def home():
-    return render_template('home.html', tareas=tareas)
+
+    total = len(tareas)
+
+    sin_empezar = sum(1 for t in tareas if t["estado"] == "sin_empezar")
+    pendientes = sum(1 for t in tareas if t["estado"] == "pendiente")
+    completadas = sum(1 for t in tareas if t["estado"] == "completado")
+
+    if total > 0:
+        porcentaje_sin_empezar = int((sin_empezar / total) * 100)
+        porcentaje_pendientes = int((pendientes / total) * 100)
+        porcentaje_completadas = int((completadas / total) * 100)
+    else:
+        porcentaje_sin_empezar = 0
+        porcentaje_pendientes = 0
+        porcentaje_completadas = 0
+
+    return render_template(
+        'home.html',
+        tareas=tareas,
+        total=total,
+        sin_empezar=sin_empezar,
+        pendientes=pendientes,
+        completadas=completadas,
+        porcentaje_sin_empezar=porcentaje_sin_empezar,
+        porcentaje_pendientes=porcentaje_pendientes,
+        porcentaje_completadas=porcentaje_completadas
+    )  
 
 #------------------------------------------------------------------------------------ 
 
@@ -52,21 +78,18 @@ def eliminar(indice):
     tareas.pop(indice)
     return redirect(url_for('home'))
 
-if __name__ == '__main__':
-    app.run(debug=True)
+#------------------------------------------------------------------------------------ 
+
+@app.route('/eliminar_todo', methods=['POST'])
+def eliminar_todo():
+    global tareas
+    tareas.clear()
+    return redirect(url_for('home'))
 
 #------------------------------------------------------------------------------------ 
 
-#FORMATO ANTIGUO 26/02/2026:
+if __name__ == '__main__':
+    app.run(debug=True)
 
-# from flask import Flask, render_template
-# app = Flask(__name__)
-# @app.route('/')
-# def home():
-#     return render_template('home.html')
-# @app.route('/about')
-# def about():
-#     return render_template('about.html')
-# if __name__ == '__main__':
-#     app.run(debug=True) 
+
 
