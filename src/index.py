@@ -5,6 +5,13 @@ app.secret_key = "clave_super_secreta"
 
 tareas = []  # Lista temporal en memoria
 
+usuarios = [
+    {"nombre": "Juan Carlos Pérez", "direccion": "Plaza de Armas 123", "ciudad": "La Serena", "activos": 3},
+    {"nombre": "María González", "direccion": "Av. Balmaceda 450", "ciudad": "Coquimbo", "activos": 5},
+    {"nombre": "Carlos Ramírez", "direccion": "Av. Francisco de Aguirre 920", "ciudad": "La Serena", "activos": 2},
+    {"nombre": "Héctor Patricio Lillo Vega", "direccion": "Av. Francisco de Aguirre 789", "ciudad": "La Serena", "activos": 6}
+]
+
 #------------------------------------------------------------------------------------ 
 
 @app.route('/')
@@ -41,7 +48,14 @@ def home():
 
 @app.route('/about')
 def about():
-    return render_template('about.html')
+    return render_template("about.html", usuarios=usuarios)
+    # return render_template('about.html')
+
+#------------------------------------------------------------------------------------ 
+
+@app.route('/ver_detalle')
+def ver_detalle():
+    return render_template('ver_detalle.html')
 
 #------------------------------------------------------------------------------------ 
 
@@ -87,6 +101,17 @@ def eliminar_todo():
     return redirect(url_for('home'))
 
 #------------------------------------------------------------------------------------ 
+
+
+
+
+
+
+
+
+
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)

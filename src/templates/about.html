@@ -2,8 +2,142 @@
 
 {% block content %}
 
-<h3>About</h3>
 
+<div class="container mt-3">
+
+    <div class="accordion" id="miAccordion">
+        <div class="accordion-item">
+
+            <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#contenido" aria-expanded="true">
+                    Sistema de Gestión de Inventario TI
+                </button>
+            </h2>
+
+            <div id="contenido" class="accordion-collapse collapse show"
+                 data-bs-parent="#miAccordion">
+
+                <div class="accordion-body">
+
+                    <!-- ===================== -->
+                    <!-- CARD FORMULARIO USUARIO -->
+                    <!-- ===================== -->
+
+                    <div class="card shadow-sm p-4 mb-4" style="max-width:900px; margin:auto;">
+
+                        <!-- <h5 class="mb-4 text-center">Datos del Usuario</h5> -->
+
+                        <form class="form-inventario" method="POST">
+                            <div class="row">
+                                <div class="col-md-3 mb-3">
+                                    <label class="form-label">Nombre Usuario</label>
+                                    <!-- <input type="text" name="nombre" class="form-control"> -->
+                                    <input type="text" name="nombre" class="form-control input-pequeno">
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <label class="form-label">RUT</label>
+                                    <input type="text" name="rut" class="form-control">
+                                </div>
+
+                                <div class="col-md-3 mb-3">
+                                    <label class="form-label">Dirección</label>
+                                    <input type="text" name="direccion" class="form-control">
+                                </div>
+
+                                <div class="col-md-3 mb-3">
+                                    <label class="form-label">Comuna</label>
+                                    <input type="text" name="comuna" class="form-control">
+                                </div>
+
+                                <div class="col-md-3 mb-3">
+                                    <label class="form-label">Región</label>
+                                    <input type="text" name="region" class="form-control">
+                                </div>
+
+                                <div class="col-md-3 mb-3">
+                                    <label class="form-label">Ciudad</label>
+                                    <input type="text" name="ciudad" class="form-control">
+                                </div>
+
+                                <div class="col-md-3 mb-3">
+                                    <label class="form-label">Área</label>
+                                    <input type="text" name="area" class="form-control">
+                                </div>
+
+                                <div class="col-md-3 mb-3">
+                                    <label class="form-label">Tipo Usuario</label>
+                                    <input type="text" name="tipo_usuario" class="form-control">
+                                </div>
+                            </div>
+                            <div class="mt-3 text-end">
+                                <button class="btn btn-primary px-4">
+                                    Registrar Usuario
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- ===================== -->
+                    <!-- LISTADO (AHORA ABAJO) -->
+                    <!-- ===================== -->
+
+                    <div class="card shadow-sm p-3">
+<!-- ************************************************************************ -->
+                        <div class="row g-2 mt-1">
+                            <div class="row mb-2">
+                                <div class="col-md-4">
+                                    <select class="form-select form-select-sm">
+                                        <option value="">Seleccione...</option>
+                                        <option>Ejemplo 1</option>
+                                        <option>Ejemplo 2</option>
+                                        <option>Ejemplo 3</option>
+                                        <option>Ejemplo 4</option>
+                                        <option>Ejemplo 5</option>
+                                        <option>Ejemplo 6</option>
+                                        <option>Ejemplo 7</option>
+                                        <option>Ejemplo 8</option>
+                                        <option>Ejemplo 9</option>
+                                        <option>Ejemplo 10</option>
+                                        <option>Ejemplo 11</option>
+                                        <option>Ejemplo 12</option>
+                                    </select>
+                                </div>
+                            </div>
+                            {% for usuario in usuarios %}
+
+                            <div class="col-lg-4 col-md-6">
+                                <div class="card shadow-sm h-100">
+                                    <div class="card-body p-2">
+
+                                        <h6 class="fw-bold small mb-1">{{ usuario.nombre }}</h6>
+
+                                        <p class="text-muted small mb-2">
+                                        📍 {{ usuario.direccion }}<br>
+                                        {{ usuario.ciudad }}
+                                        </p>
+
+                                        <span class="badge bg-primary mb-2">
+                                            Activos: {{ usuario.activos }}
+                                        </span>
+
+                                        <div class="d-flex gap-1">
+                                            <a href="{{ url_for('ver_detalle', id=usuario.id) }}" class="btn btn-warning btn-sm w-100">Ver</a>
+                                            <button class="btn btn-danger btn-sm w-100">Eliminar</button>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+<!-- ************************************************************************ -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
 {% endblock %}
 
 

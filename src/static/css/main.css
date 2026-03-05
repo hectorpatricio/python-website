@@ -130,3 +130,155 @@ input[type="text"] {
 .nav-link.active {
     border-bottom: 2px solid #F54927;
 }
+
+
+/* ================================================================================= */
+.form-label {
+    font-size: 14px;
+}
+
+body
+{
+    background: #67B26F;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #4ca2cd, #67B26F);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #4ca2cd, #67B26F); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+ 
+    font-family: Arial, sans-serif;
+    background-color: #f4f6f9;
+    margin: 0;
+}
+
+header {
+    background-color: #2f5fa7;
+    color: white;
+    padding: 20px;
+    font-size: 24px;
+}
+
+.container {
+    width: 80%;
+    margin: 30px auto;
+}
+
+.form-tarea {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 2px 8px rgba(0,0,0,0.1);
+}
+
+input[type="text"] {
+    width: 70%;
+    padding: 10px;
+}
+
+.lista {
+    margin-top: 20px;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.tarea {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.accordion-button {
+    background-color: #3f83d1;  /* más oscuro que el anterior */
+    color: white;
+}
+
+.accordion-button:not(.collapsed) {
+    background-color: #2f6fb3;  /* un tono más profundo */
+    color: white;
+}
+
+.accordion-button::after {
+    filter: brightness(0) invert(1);
+}
+
+/* Quitar borde gris feo */
+.accordion-item {
+    border: none;
+}
+
+/* Bordes redondeados */
+.accordion {
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+/* Sombra elegante */
+.accordion-item {
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.12);
+}
+
+/* Transición suave */
+.accordion-button {
+    transition: background-color 0.3s ease;
+}
+
+.btn-modificar {
+    background-color: #f4b400 !important;
+    color: black !important;
+    font-size: 14px;
+    padding: 10px 20px;
+    border: none;
+}
+
+.btn-modificar:hover {
+    background-color: #e09e00 !important;
+    color: black !important;
+}
+
+.btn-eliminar {
+    background-color: #d93025 !important;
+    color: white !important;
+    font-size: 14px;
+    padding: 10px 20px;
+    border: none;
+}
+
+.btn-eliminar:hover {
+    background-color: #b71c1c !important;
+    color: white !important;
+}
+
+.form-control-sm,
+.form-select-sm {
+    height: 41px;
+}
+
+.tarea-completada {
+    background-color: #d4edda;
+    border-color: #28a745;
+}
+
+.tarea-pendiente {
+    background-color: #fff3cd;
+    border-color: #ffc107;
+}
+
+.tarea-sin-empezar {
+    background-color: #f8f9fa;
+    border-color: #ced4da;
+}
+
+.nav-link.active {
+    border-bottom: 2px solid #F54927;
+}
+
+
+/* ================================================================================= */
+.form-label {
+    font-size: 14px;
+}
+
+.form-inventario .form-control {
+    width: 100% !important;
+    height: 32px;
+    font-size: 0.85rem;
+    padding: 4px 8px;
+}
