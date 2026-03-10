@@ -3,7 +3,11 @@ from flask import Flask, render_template, request, redirect, url_for, flash
 app = Flask(__name__)
 app.secret_key = "clave_super_secreta"
 
-tareas = []  # Lista temporal en memoria
+tareas = [
+    {"texto": "Proyecto 1", "estado": "sin_empezar"},
+    {"texto": "Proyecto 2", "estado": "pendiente"},
+    {"texto": "Proyecto 3", "estado": "completado"}
+]
 
 usuarios = [
     {"nombre": "Juan Carlos Pérez", "direccion": "Plaza de Armas 123", "ciudad": "La Serena", "activos": 3},

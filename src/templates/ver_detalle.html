@@ -1,7 +1,167 @@
 {% extends "layout.html" %}
 
 {% block content %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+<div class="container mt-3">
 
-Ver detalle
+    <div class="accordion" id="miAccordion">
+        <div class="accordion-item">
 
+            <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#contenido" aria-expanded="true">
+                    Ver
+                </button>
+            </h2>
+
+            <div id="contenido" class="accordion-collapse collapse show" data-bs-parent="#miAccordion">
+
+                <div class="accordion-body">
+
+                    <div class="row">
+
+                        <!-- CARD 1 -->
+                        <div class="col-lg-4 col-md-6 mb-3">
+                            <div class="card shadow-sm">
+                                <div class="card-body">
+
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <h6 class="fw-bold mb-0">COMPUTADOR</h6>
+                                            <!-- <small class="text-muted">142-001</small> -->
+                                        </div>
+                                        <i class="bi bi-laptop text-primary" style="font-size:40px;"></i>
+                                    </div>
+
+                                    <hr class="my-2">
+
+                                    <small>
+                                        <strong>Código Interno:</strong> 142-001<br>
+                                        <strong>Tipo Dispositivo:</strong> Notebook<br>
+                                        <strong>Télefono:</strong> 512345678<br>
+                                        <strong>Usuario de Red:</strong> jcontreras<br>
+                                        <strong>Número de Serie:</strong> SN123456789<br>
+                                        <strong>Hostname:</strong> PC-JCONTRERAS-01<br>
+                                        <strong>Marca:</strong> Dell<br>
+                                        <strong>Modelo:</strong> Latitude 5420<br>
+                                        <strong>Hostname:</strong> PC-JCONTRERAS-01<br>
+                                        <strong>Observación:</strong> Equipo asignado a oficina administrativa<br>
+                                    </small>
+
+                                    <hr class="my-2">
+
+                                    <div class="d-flex gap-3 small">
+                                        <a href="#" class="text-primary text-decoration-none">✏ Editar</a>
+                                        <a href="#" class="text-danger text-decoration-none">🗑 Eliminar</a>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- CARD 2 -->
+                        <div class="col-lg-4 col-md-6 mb-3">
+                            <div class="card shadow-sm">
+                                <div class="card-body">
+
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                            <h6 class="fw-bold mb-0"><i class="bi bi-pc-display text-primary" style="font-size:40px;"></i> NOTEBOOK</h6>
+                                            <small class="text-muted">142-002</small>
+                                        </div>
+                                        <span class="text-success">✔</span>
+                                    </div>
+
+                                    <hr class="my-2">
+
+                                    <small>
+                                        <strong>Código Interno:</strong> 142-002<br>
+                                        <strong>Serie:</strong> CNZR44FH7BL
+                                    </small>
+
+                                    <hr class="my-2">
+
+                                    <div class="d-flex gap-3 small">
+                                        <a href="#" class="text-primary text-decoration-none">✏ Editar</a>
+                                        <a href="#" class="text-danger text-decoration-none">🗑 Eliminar</a>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- CARD 3 -->
+                        <div class="col-lg-4 col-md-6 mb-3">
+                            <div class="card shadow-sm">
+                                <div class="card-body">
+
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                            <h6 class="fw-bold mb-0"><i class="bi bi-display text-primary" style="font-size:40px;"></i> PANTALLA</h6>
+                                            <small class="text-muted">142-003</small>
+                                        </div>
+                                        <span class="text-success">✔</span>
+                                    </div>
+
+                                    <hr class="my-2">
+
+                                    <small>
+                                        <strong>Código Interno:</strong> 142-003<br>
+                                        <strong>Marca:</strong> Dell<br>
+                                        <strong>Serie:</strong> MXT67J54YL
+                                    </small>
+
+                                    <hr class="my-2">
+
+                                    <div class="d-flex gap-3 small">
+                                        <a href="#" class="text-primary text-decoration-none">✏ Editar</a>
+                                        <a href="#" class="text-danger text-decoration-none">🗑 Eliminar</a>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- CARD 3 -->
+                        <div class="col-lg-4 col-md-6 mb-3">
+                            <div class="card shadow-sm">
+                                <div class="card-body">
+
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                            <h6 class="fw-bold mb-0"><i class="bi bi-display text-primary" style="font-size:40px;"></i> PANTALLA</h6>
+                                            <small class="text-muted">142-003</small>
+                                        </div>
+                                        <span class="text-success">✔</span>
+                                    </div>
+
+                                    <hr class="my-2">
+
+                                    <small>
+                                        <strong>Código Interno:</strong> 142-003<br>
+                                        <strong>Marca:</strong> Dell<br>
+                                        <strong>Serie:</strong> MXT67J54YL
+                                    </small>
+
+                                    <hr class="my-2">
+
+                                    <div class="d-flex gap-3 small">
+                                        <a href="#" class="text-primary text-decoration-none">✏ Editar</a>
+                                        <a href="#" class="text-danger text-decoration-none">🗑 Eliminar</a>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
 {% endblock %}
+
+
